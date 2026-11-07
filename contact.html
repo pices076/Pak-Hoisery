@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us | Pak Hoisery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="main-header glass-nav">
+        <div class="container header-content-row">
+            <div class="logo">
+                <a href="index.html"><img src="assets/logo.svg" alt="Pak Hoisery" class="nav-logo-img"></a>
+            </div>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <div class="nav-dropdown">
+                    <a href="products/all-season-men.html">Products <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <div class="menu-group">
+                            <a href="products/all-season-men.html">All Season <i class="fas fa-chevron-down"></i></a>
+                            <div class="submenu-panel">
+                                <a href="products/all-season-men.html">Men</a>
+                                <a href="products/all-season-women.html">Women</a>
+                                <a href="products/all-season-kids.html">Kids</a>
+                            </div>
+                        </div>
+                        <div class="menu-group">
+                            <a href="products/summer-men.html">Summer <i class="fas fa-chevron-down"></i></a>
+                            <div class="submenu-panel">
+                                <a href="products/summer-men.html">Men</a>
+                                <a href="products/summer-women.html">Women</a>
+                                <a href="products/summer-kids.html">Kids</a>
+                            </div>
+                        </div>
+                        <div class="menu-group">
+                            <a href="products/winter-men.html">Winter <i class="fas fa-chevron-down"></i></a>
+                            <div class="submenu-panel">
+                                <a href="products/winter-men.html">Men</a>
+                                <a href="products/winter-women.html">Women</a>
+                                <a href="products/winter-kids.html">Kids</a>
+                            </div>
+                        </div>
+                        <div class="menu-group">
+                            <a href="products/kitchen.html">Kitchen (Coming Soon) <i class="fas fa-chevron-down"></i></a>
+                            <div class="submenu-panel">
+                                <a href="products/kitchen.html">Towels</a>
+                                <a href="products/kitchen.html">Matte</a>
+                                <a href="products/kitchen.html">Gloves</a>
+                                <a href="products/kitchen.html">Apron</a>
+                                <a href="products/kitchen.html">Cap</a>
+                            </div>
+                        </div>
+                        <div class="menu-group">
+                            <a href="products/bath.html">Bath (Coming Soon) <i class="fas fa-chevron-down"></i></a>
+                            <div class="submenu-panel">
+                                <a href="products/bath.html">Towels</a>
+                                <a href="products/bath.html">Bathrobe</a>
+                                <a href="products/bath.html">Bath Matte</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="active">Contact Us</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="catalogue/hosiery-catalogue.pdf" class="header-catalogue-btn" target="_blank" rel="noopener">Download Catalogue</a>
+            </div>
+
+            <div class="mobile-menu-btn">☰</div>
+        </div>
+    </header>
+
+    <section class="hero page-header-small" style="background-image: url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1400&q=80'); height: 42vh;">
+        <div class="container hero-content">
+            <h1 class="hero-title">CONTACT US</h1>
+            <p class="hero-slogan" style="margin-bottom: 0;">We are ready to discuss your hosiery requirements.</p>
+        </div>
+    </section>
+
+    <section class="section-padding light-bg">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-details">
+                    <h2 style="margin-bottom: 25px;">Get in Touch</h2>
+                    <p style="margin-bottom: 25px;">Share your requirements and we will respond with the right hosiery solution for your business.</p>
+                    <p><strong><i class="fas fa-envelope" style="color: var(--primary-blue); margin-right: 10px;"></i> Email:</strong><br> info@pakhoisery.com</p>
+                    <p><strong><i class="fas fa-phone" style="color: var(--primary-blue); margin-right: 10px;"></i> Phone:</strong><br> +92 300 0000000</p>
+                    <p><strong><i class="fas fa-map-marker-alt" style="color: var(--primary-blue); margin-right: 10px;"></i> Address:</strong><br> Pakistan</p>
+                </div>
+                <div class="contact-form-box">
+                    <form id="contactForm" novalidate>
+                        <div class="form-row two-columns">
+                            <label>
+                                <span>Customer name</span>
+                                <input type="text" name="name" placeholder="Your full name" required>
+                            </label>
+                            <label>
+                                <span>Email address</span>
+                                <input type="email" name="email" placeholder="name@example.com" required>
+                            </label>
+                        </div>
+
+                        <div class="form-row two-columns">
+                            <label>
+                                <span>Phone number</span>
+                                <input type="tel" name="phone" placeholder="+92 300 0000000" required>
+                            </label>
+                            <label>
+                                <span>Subject</span>
+                                <input type="text" name="subject" placeholder="Enquiry subject" required>
+                            </label>
+                        </div>
+
+                        <label>
+                            <span>Message</span>
+                            <textarea name="message" rows="6" placeholder="Tell us about your requirement" required></textarea>
+                        </label>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-find">Send Enquiry</button>
+                        </div>
+
+                        <p class="form-note">This form uses FormSubmit. Update the recipient email in the JavaScript configuration before launch, and activate that address through the FormSubmit confirmation email.</p>
+                        <div id="formMessage" class="form-status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>PAK HOSIERY</h3>
+                    <p>Professional hosiery manufacturing with commitment to quality and consistency.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products/men.html">Men</a></li>
+                        <li><a href="products/women.html">Women</a></li>
+                        <li><a href="products/kids.html">Kids</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@pakhoisery.com</p>
+                    <p><i class="fas fa-phone"></i> +92 300 0000000</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Pakistan</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Pak Hoisery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
