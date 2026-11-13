@@ -327,20 +327,23 @@ const productCatalog = [
         collection: 'Winter',
         gender: 'Men',
         title: 'Warmer',
-        shortDescription: 'Warm and breathable knit warmers for everyday winter comfort.',
-        description: 'Crafted for colder days, this warmer range offers insulation, flexibility, and an easy fit for daily wear.',
+        shortDescription: 'Warm cotton winter warmer available in cream, blue, and grey.',
+        description: 'Crafted for colder days, this warmer range offers insulation, flexibility, and an easy fit for daily wear in cream, blue, and grey finishes.',
         badge: 'Winter Essential',
-        colors: ['Charcoal', 'Navy', 'Black', 'Olive'],
+        colors: ['Cream', 'Blue', 'Grey'],
         sizes: ['M', 'L', 'XL', 'XXL'],
         subcategories: ['Knee Warmer'],
         features: ['Warm knit', 'Flexible stretch', 'Seasonal support', 'Durable finish'],
         gallery: [
-            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80'
+            '../assets/images/Winter-Men-Warmer 1.png',
+            '../assets/images/Winter-Men-Warmer 2.jpeg',
+            '../assets/images/Winter-Men-Warmer 3.png',
+            '../assets/images/Winter-Men-Warmer 4.jpeg',
+            '../assets/images/Winter-Men-Warmer 5.jpg',
+            '../assets/images/Winter-Men-Warmer 6.jpeg',
+            '../assets/images/Winter-Men-Warmer 7.jpg',
+            '../assets/images/Winter-Men-Warmer 8.jpg',
+            '../assets/images/Winter-Men-Warmer 9.jpg'
         ]
     },
     {
@@ -684,6 +687,16 @@ function initProductDropdownMenus() {
         const menuGroups = dropdown.querySelectorAll('.menu-group');
         const productTrigger = dropdown.firstElementChild;
 
+        const closeDropdown = () => {
+            if (window.innerWidth > 992) {
+                dropdown.classList.remove('open');
+                menuGroups.forEach((group) => group.classList.remove('active'));
+                if (productTrigger && productTrigger.tagName === 'A') {
+                    productTrigger.setAttribute('aria-expanded', 'false');
+                }
+            }
+        };
+
         const toggleTopLevelDropdown = (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -728,23 +741,38 @@ function initProductDropdownMenus() {
                 if (!isActive) {
                     group.classList.add('active');
                     dropdown.classList.add('open');
+                    if (productTrigger && productTrigger.tagName === 'A') {
+                        productTrigger.setAttribute('aria-expanded', 'true');
+                    }
                 } else {
-                    dropdown.classList.remove('open');
+                    closeDropdown();
                 }
             };
 
             trigger.addEventListener('click', handleSubmenuToggle);
+            group.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 992) {
+                    menuGroups.forEach((item) => item.classList.remove('active'));
+                    group.classList.add('active');
+                    dropdown.classList.add('open');
+                }
+            });
+            group.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 992) {
+                    const submenuPanel = group.querySelector('.submenu-panel');
+                    if (submenuPanel && submenuPanel.matches(':hover')) {
+                        return;
+                    }
+                    group.classList.remove('active');
+                    const isAnyGroupActive = Array.from(menuGroups).some((item) => item.classList.contains('active'));
+                    if (!isAnyGroupActive) {
+                        closeDropdown();
+                    }
+                }
+            });
         });
 
-        dropdown.addEventListener('mouseleave', () => {
-            if (window.innerWidth > 992) {
-                dropdown.classList.remove('open');
-                menuGroups.forEach((group) => group.classList.remove('active'));
-                if (productTrigger && productTrigger.tagName === 'A') {
-                    productTrigger.setAttribute('aria-expanded', 'false');
-                }
-            }
-        });
+        dropdown.addEventListener('mouseleave', closeDropdown);
     });
 }
 
@@ -837,14 +865,13 @@ function renderProductDetail() {
     }
 
     const thumbnailMarkup = product.gallery.map((image, index) => `
-        <button class="gallery-thumbnail${index === 0 ? ' active' : ''}" type="button" data-image="${image}">
+        <button class="gallery-thumbnail${index === 0 ? ' active' : ''}" type="button" data-image="${image}" data-index="${index}">
             <img src="${image}" alt="${product.title} gallery ${index + 1}">
         </button>
     `).join('');
 
     const colorOptions = product.colors.map((color) => `<option value="${color}">${color}</option>`).join('');
     const sizeOptions = product.sizes.map((size) => `<option value="${size}">${size}</option>`).join('');
-    const subcatOptions = product.subcategories.map((item) => `<option value="${item}">${item}</option>`).join('');
     const featuresMarkup = product.features.map((feature) => `<li>${feature}</li>`).join('');
     const relatedProducts = productCatalog.filter((item) => item.slug !== product.slug && (item.collection === product.collection || item.gender === product.gender)).slice(0, 4);
     const relatedMarkup = relatedProducts.map((item) => `
@@ -891,10 +918,6 @@ function renderProductDetail() {
                             <select name="size">${sizeOptions}</select>
                         </label>
                         <label>
-                            <span>Sub Category</span>
-                            <select name="subcategory">${subcatOptions}</select>
-                        </label>
-                        <label>
                             <span>Quantity</span>
                             <input type="number" min="1" max="100" value="1" name="quantity">
                         </label>
@@ -926,7 +949,7 @@ function renderProductDetail() {
             </div>
             <div class="product-specs__box">
                 <h3>Recommended use</h3>
-                <p>Perfect for everyday wear, premium gifting, and sample ordering. Select your color, size, and subcategory, then place your request through WhatsApp or the enquiry form.</p>
+                <p>Perfect for everyday wear, premium gifting, and sample ordering. Select your color and size, then place your request through WhatsApp or the enquiry form.</p>
             </div>
         </div>
 
@@ -947,11 +970,13 @@ function renderProductDetail() {
     document.querySelectorAll('.gallery-thumbnail').forEach((button) => {
         button.addEventListener('click', () => {
             const image = button.dataset.image;
+            const imageIndex = Number(button.dataset.index ?? 0);
             if (mainImage && image) {
                 mainImage.src = image;
                 const fullScreenButton = document.querySelector('.gallery-fullscreen');
                 if (fullScreenButton) {
                     fullScreenButton.dataset.fullscreenImage = image;
+                    fullScreenButton.dataset.fullscreenIndex = String(imageIndex);
                 }
             }
             document.querySelectorAll('.gallery-thumbnail').forEach((thumb) => thumb.classList.remove('active'));
@@ -964,9 +989,28 @@ function renderProductDetail() {
         fullScreenButton.addEventListener('click', () => {
             const modal = document.getElementById('gallery-modal');
             const modalImage = document.getElementById('gallery-modal-image');
+            const galleryImages = product.gallery || [];
             if (!modal || !modalImage) return;
-            modalImage.src = fullScreenButton.dataset.fullscreenImage || mainImage.src;
-            modal.classList.add('is-open');
+            const startIndex = Number(fullScreenButton.dataset.fullscreenIndex ?? 0);
+            const openModalAtIndex = (index) => {
+                const safeIndex = (index + galleryImages.length) % galleryImages.length;
+                modal.dataset.currentIndex = String(safeIndex);
+                modalImage.src = galleryImages[safeIndex];
+                const prevButton = document.getElementById('gallery-modal-prev');
+                const nextButton = document.getElementById('gallery-modal-next');
+                if (prevButton) prevButton.dataset.index = String(safeIndex);
+                if (nextButton) nextButton.dataset.index = String(safeIndex);
+                modal.classList.add('is-open');
+            };
+            openModalAtIndex(startIndex);
+            const prevButton = document.getElementById('gallery-modal-prev');
+            const nextButton = document.getElementById('gallery-modal-next');
+            if (prevButton) {
+                prevButton.onclick = () => openModalAtIndex(Number(modal.dataset.currentIndex || 0) - 1);
+            }
+            if (nextButton) {
+                nextButton.onclick = () => openModalAtIndex(Number(modal.dataset.currentIndex || 0) + 1);
+            }
         });
     }
 
@@ -976,7 +1020,7 @@ function renderProductDetail() {
             event.preventDefault();
             const formData = new FormData(orderForm);
             const payload = Object.fromEntries(formData.entries());
-            const message = `Hello, I would like to order\n- Product: ${product.title}\n- Collection: ${product.collection}\n- Gender: ${product.gender}\n- Color: ${payload.color}\n- Size: ${payload.size}\n- Sub Category: ${payload.subcategory}\n- Quantity: ${payload.quantity}\n- Name: ${payload.customerName}\n- Phone: ${payload.customerPhone}`;
+            const message = `Hello, I would like to order\n- Product: ${product.title}\n- Collection: ${product.collection}\n- Gender: ${product.gender}\n- Color: ${payload.color}\n- Size: ${payload.size}\n- Quantity: ${payload.quantity}\n- Name: ${payload.customerName}\n- Phone: ${payload.customerPhone}`;
             const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank', 'noopener');
         });
@@ -992,8 +1036,10 @@ function initImageModal() {
     modal.innerHTML = `
         <div class="gallery-modal__backdrop" data-close-modal="true"></div>
         <div class="gallery-modal__content">
+            <button type="button" class="gallery-modal__nav gallery-modal__prev" id="gallery-modal-prev" aria-label="Previous image">‹</button>
             <button type="button" class="gallery-modal__close" data-close-modal="true">×</button>
             <img id="gallery-modal-image" src="" alt="Product full screen preview">
+            <button type="button" class="gallery-modal__nav gallery-modal__next" id="gallery-modal-next" aria-label="Next image">›</button>
         </div>
     `;
     document.body.appendChild(modal);
@@ -1012,7 +1058,7 @@ function initImageModal() {
 }
 
 function initRevealAnimations() {
-    const revealItems = document.querySelectorAll('.section-header, .process-item, .quality-item, .why-item, .page-product-card, .about-copy, .about-image, .contact-form-box, .contact-details, .product-card, .product-detail-shell');
+    const revealItems = document.querySelectorAll('.section-header, .quality-item, .why-item, .page-product-card, .about-copy, .about-image, .contact-form-box, .contact-details, .product-card, .product-detail-shell');
 
     if ('IntersectionObserver' in window && revealItems.length) {
         const revealObserver = new IntersectionObserver((entries) => {
